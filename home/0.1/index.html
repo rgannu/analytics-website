@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: Analytics Docs</title>
+    <link rel="canonical" href="https://analytics.utopian.com/home/0.1/index.html">
+    <meta name="generator" content="Antora 2.3.1">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://analytics.utopian.com">Analytics Docs</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="home" data-version="0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Analytics</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Analytics guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Analytics</span>
+    <span class="version">0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Analytics</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Analytics</a></li>
+    <li><a href="index.html">Analytics guide</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///home/ganesh/IdeaProjects/github/analytics/docs/home/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<div class="sect1">
+<h2 id="_analytics"><a class="anchor" href="#_analytics"></a>Analytics</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Project to test analytics.</p>
+</div>
+<div class="sect2">
+<h3 id="_technologies"><a class="anchor" href="#_technologies"></a>Technologies</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Zookeeper</p>
+</li>
+<li>
+<p>Kafka Connect</p>
+</li>
+<li>
+<p>Kafka</p>
+</li>
+<li>
+<p>PostgreSQL DB</p>
+</li>
+<li>
+<p>Flyway (DB creation)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h3>
+<div class="paragraph">
+<p>The back-end data storage is Postgres database.
+There is a need to transfer data from the back-end DB to any other application/database for analytics purposes.
+PostgreSQL replication has advanced considerably in recent major releases, including continuous improvements to
+streaming replication and the addition of logical replication in PostgreSQL 10.
+The replication capability will help in transferring the complete database which is generally not
+needed for analytics purposes.</p>
+</div>
+<div class="paragraph">
+<p>What we need for analytics purposes are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Capture all the database changes as events</p>
+</li>
+<li>
+<p>Available in real-time</p>
+</li>
+<li>
+<p>Data is always accessible, so they can meet the high-availability requirements for their applications.</p>
+</li>
+<li>
+<p>Do not lose data (even restart of DB/DB not available for some period)</p>
+</li>
+<li>
+<p>Transfer data in a secure manner</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://debezium.io/">Debezium</a> is one of the tool available to capture database change events.
+Debezium is built upon the <a href="https://kafka.apache.org/">Apache Kafka project</a> and uses Kafka to
+transport the changes from one system to another.</p>
+</div>
+<div class="paragraph">
+<p>Debezium uses <a href="https://en.wikipedia.org/wiki/Change_data_capture">Change Data Capture</a>(CDC) to
+capture the data and push it into Kafka. The advantage of this is that the source database remains
+untouched in the sense that we don’t have to add triggers or log tables. This is a huge advantage
+as triggers and log tables degrade performance.</p>
+</div>
+<div class="paragraph">
+<p>This can be used by us to transfer data to any analytics application in real-time.
+Also Debezium provides filtering capability such that we can capture fine-grained data
+which are needed for analytics rather than the entire dump (which is mostly not needed).</p>
+</div>
+<div class="paragraph">
+<p>KSQL provides a simple, interactive SQL interface for stream processing and can be run standalone and
+controlled remotely. KSQL utilizes the Kafka Streams API under the hood, meaning we can use it to
+do the same kind of declarative slicing and dicing we might do in JVM code using the Streams API.
+Then a native Kafka client, in whatever language our service is built in, can process the manipulated
+streams one message at a time. Whichever approach we take, these tools let us model business
+operations in an asynchronous, non-blocking, and coordination-free manner.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_demo_setup"><a class="anchor" href="#_demo_setup"></a>Demo Setup</h3>
+<div class="imageblock">
+<div class="content">
+<img src="_images/analytics-demo.png" alt="Analytics Demo setup">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_tools_of_the_trade_windows_tables_state_stores"><a class="anchor" href="#_the_tools_of_the_trade_windows_tables_state_stores"></a>The Tools of the Trade: Windows, Tables &amp; State Stores</h3>
+<div class="paragraph">
+<p>(Reference: <a href="https://www.confluent.jp/blog/building-a-microservices-ecosystem-with-kafka-streams-and-ksql/" class="bare">https://www.confluent.jp/blog/building-a-microservices-ecosystem-with-kafka-streams-and-ksql/</a>)</p>
+</div>
+<div class="paragraph">
+<p>Before we develop more complex microservice example let’s take a look more closely at some of the key elements of the Kafka Streams API. Kafka Streams needs its own local storage for a few different reasons. The most obvious is for buffering, as unlike in a traditional database—which keeps all historical data on hand—stream operations only need to collect events for some period of time. One that corresponds to how ‘late’ related messages may be with respect to one another.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/stream-stream-join.png" alt="Local state backup">
+</div>
+</div>
+<div class="paragraph">
+<p>Let’s use a few variants on the email example. Imagine you want to send an email that confirms payment of a new order. We know that an Order and its corresponding Payment will turn up at around the same time, but we don’t know for sure which will come first or exactly how far apart they may be. We can put an upper limit on this though—let’s say an hour to be safe.</p>
+</div>
+<div class="paragraph">
+<p>To avoid doing all of this buffering in memory, Kafka Streams implements disk-backed State Stores to overflow the buffered streams to disk (think of this as a disk-resident hashtable). So each stream is buffered in this State Store, keyed by its message key. Thus, regardless of how late a particular event may be, the corresponding event can be quickly retrieved.</p>
+</div>
+<div class="paragraph">
+<p>Kafka Streams takes this same concept a step further to manage whole tables. Tables are a local manifestation of a complete topic—usually compacted—held in a state store by key. (You can also think of them as a stream with infinite retention.) In a microservices context, such tables are often used for enrichment. Say we decide to include Customer information in our Email logic. We can’t easily use a stream-stream join as there is no specific correlation between a user creating an Order and a user updating their Customer Information—that’s to say that there is no logical upper limit on how far apart these events may be. So this style of operation requires a table: the whole stream of Customers, from offset 0, replayed into the State Store inside the Kafka Streams API.</p>
+</div>
+<div class="paragraph">
+<p>The nice thing about using a KTable is it behaves like a table in a database. So when we join a stream of Orders to a KTable of Customers, there is no need to worry about retention periods, windows or any other such complexity. If the customer record exists, the join will just work.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/stream-table-join.png" alt="Local state backup">
+</div>
+</div>
+<div class="paragraph">
+<p>There are actually two types of table in Kafka Streams: KTables and Global KTables. With just one instance of a service running, these effectively behave the same. However, if we scaled our service out—so it had, say, four instances running in parallel—we’d see slightly different behavior. This is because Global KTables are cloned: each service instance gets a complete copy of the entire table. Regular KTables are sharded: the dataset is spread over all service instances. So in short, Global KTables are easier to use, but they have scalability limits as they are cloned across machines, so use them for lookup tables (typically up to several gigabytes) that will fit easily on a machine’s local disk. Use KTables, and scale your services out, when the dataset is larger.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/local-state-backup.png" alt="Local state backup">
+</div>
+</div>
+<div class="paragraph">
+<p>The final use of the State Store is to save information, just like we might write data to a regular database. This means we can save any information we wish and read it back again later, say after a restart. So we might expose an Admin interface to our Email Service which provides stats on emails that have been sent. We could store these stats in a state store and they’ll be saved locally, as well as being backed up to Kafka, inheriting all its durability guarantees.</p>
+</div>
+<div class="paragraph">
+<p>The minimum components required for skeleton deployment are</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Kafka broker - consisting of a single <a href="https://zookeeper.apache.org/">Apache ZooKeeper</a> instance for cluster management and a
+single node of Kafka broker</p>
+</li>
+<li>
+<p>Kafka Connect node - containing and configured to</p>
+</li>
+<li>
+<p>Stream data from PostgresDB (Source)</p>
+</li>
+<li>
+<p>Stream data from kafka to analytics (Sink)</p>
+</li>
+<li>
+<p>Source Database</p>
+</li>
+<li>
+<p>PostgresDB (UTM DB)</p>
+</li>
+<li>
+<p>Sink</p>
+</li>
+<li>
+<p>Any database Or</p>
+</li>
+<li>
+<p><a href="https://docs.confluent.io/current/connect/managing/connectors.html">Connectors</a> supported by Kafka connect.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_run_the_docker_containers"><a class="anchor" href="#_run_the_docker_containers"></a>Run the docker containers</h3>
+<div class="paragraph">
+<p>All the components are setup as docker containers for the ease of testing.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Start the docker containers</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker-compose up</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Next we are going to start the KSQL command shell. We will run a local engine in the CLI. Also please note --net parameter. This guarantees that KSQL container runs in the same network as Debezium containers and allows proper DNS resolution.</p>
+<div class="literalblock">
+<div class="content">
+<pre>docker-compose exec ksql-cli ksql http://ksql-server:8088
+First we will list all Kafka topics that exist in the broker:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>ksql&gt; LIST TOPICS;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To check the transfer of data from Source (Postgres) to Sink (Postgres).
+Login to <code>services</code> and <code>analytics</code> databases.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker exec -it analytics_connect_1 /bin/bash
+psql -U services
+services =&gt;\d
+
+docker exec -it analytics_connect_1 /bin/bash
+psql -U analytics
+analytics =&gt;\d</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To check the transfer of data from Source (Postgres) to Sink (file sink).</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker exec -it analytics_connect_1 /bin/bash
+
+# This file will be appended with the data from kafka (as and when the data is updated)
+tail -f /tmp/kafka-file.txt</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Register kafka connectors. Upon registering the connectors, you will receive the data that already
+exists in the source tables (static data) to the destination. The file sink will also be appended
+with the static data.</p>
+</li>
+<li>
+<p>The UnwrapFromEnvelope SMT is used in the source connector. This allows us to directly map fields from the after part of change records into KSQL statements. Without it, we would need to use EXTRACTJSONFIELD for each field to be extracted from the after part of messages.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># To register source connectors
+./register-connectors -i
+# To register sink connectors.
+./register-connectors -o</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Next we are going to start the KSQL command shell. We will run a local engine in the CLI. Also please note --net parameter.
+This guarantees that KSQL container runs in the same network as Debezium containers and allows proper DNS resolution.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker exec -it ksql-cli ksql http://ksql-server:8088</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>First we will list all Kafka topics that exist in the broker:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ksql&gt; LIST TOPICS;
+
+ Kafka Topic                  | Partitions | Partition Replicas
+----------------------------------------------------------------
+ _schemas                     | 1          | 1
+ dbanalytics.services.address | 1          | 1
+ dbanalytics.services.class   | 1          | 1
+ dbanalytics.services.school  | 1          | 1
+ dbanalytics.services.staff   | 1          | 1
+ dbanalytics.services.student | 1          | 1
+ default_ksql_processing_log  | 1          | 1
+ my_connect_configs           | 1          | 1
+ my_connect_offsets           | 25         | 1
+ my_connect_statuses          | 5          | 1
+----------------------------------------------------------------</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The topics we are interested in are dbanalytics.services.*</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>KSQL processing by default starts with <code>latest</code> offsets. We want to process the events already in the topics so we switch processing from <code>earliest</code> offsets.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ksql&gt; SET 'auto.offset.reset' = 'earliest';
+Successfully changed local property 'auto.offset.reset' from 'null' to 'earliest'</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Monitor kafka connectors</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># To list kafka connectors
+curl -i  http://localhost:8083/connectors
+
+# To delete a kafka connector
+curl -i -X DELETE http://localhost:8083/connectors/unifly-source-connector
+
+# To restart
+curl -i -X POST http://localhost:8083/connectors/unifly-source-connector/restart</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Monitor the kafka topic for the messages. Note that we are storing AVRO messages and hence we are using <code>kafka-avro-console-consumer</code>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker exec -it analytics_schema-registry_1 /bin/bash
+
+# Start avro console consumer on any topic
+/usr/bin/kafka-avro-console-consumer --bootstrap-server kafka:9092 --from-beginning --property schema.registry.url=http://schema-registry:8081 --topic dbutm.services.manufacturer</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Now do any CRUD operations in the source services database. This operation will result in the analytics database.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker exec -it analytics_db_1 /bin/bash
+
+# Create some inserts, updates and deletes. After each operation monitor the analytics database
+# to check whether it is updated or not
+insert into manufacturer(id, state, unique_identifier, version, name) values(default, 0, 'uuid_testme', 0, 'testme');
+insert into vehiculum(id, state, unique_identifier, version) values(1, 0, 'uuid_vehicle_testme', 1);
+insert into trace(id, state, unique_identifier, version, properties) values(1, 0, 'uuid_testme', 1, '{"k1": "v1"}');
+
+update manufacturer set unique_identifier ='uuid_updated_testme1' where name = 'testme';
+update vehiculum set unique_identifier ='uuid_updated_vehicle_testme' where id = 1;
+
+delete from manufacturer where name = 'testme';
+delete from vehiculum where id = 1;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ALTER the schema.
+---
+<strong>NOTE</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The column that you add needs to be backwards compatible.
+For example, we cannot add NOT NULL columns.
+---</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">alter table vehiculum add column new_column bigint;
+insert into vehiculum(id, state, unique_identifier, version, new_column) values(2, 0, 'uuid_vehicle_testme11', 1, 9999);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_references"><a class="anchor" href="#_references"></a>References</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Debezium - <a href="https://debezium.io/" class="bare">https://debezium.io/</a></p>
+</li>
+<li>
+<p>Debezium github - <a href="https://github.com/debezium/debezium" class="bare">https://github.com/debezium/debezium</a></p>
+</li>
+<li>
+<p>wal2json - <a href="https://github.com/eulerto/wal2json" class="bare">https://github.com/eulerto/wal2json</a></p>
+</li>
+<li>
+<p>Kafka Connect - <a href="https://docs.confluent.io/current/connect/index.html" class="bare">https://docs.confluent.io/current/connect/index.html</a></p>
+</li>
+<li>
+<p>REST interface: <a href="https://docs.confluent.io/current/connect/references/restapi.html#connectors" class="bare">https://docs.confluent.io/current/connect/references/restapi.html#connectors</a></p>
+</li>
+<li>
+<p>Transformations: <a href="https://docs.confluent.io/current/connect/transforms/index.html" class="bare">https://docs.confluent.io/current/connect/transforms/index.html</a></p>
+</li>
+<li>
+<p>Connectors: <a href="https://docs.confluent.io/current/connect/managing/index.html" class="bare">https://docs.confluent.io/current/connect/managing/index.html</a></p>
+</li>
+<li>
+<p>Blog</p>
+</li>
+<li>
+<p><a href="https://www.simple.com/blog/a-change-data-capture-pipeline-from-postgresql-to-kafka" class="bare">https://www.simple.com/blog/a-change-data-capture-pipeline-from-postgresql-to-kafka</a></p>
+</li>
+<li>
+<p>Bottled water - <a href="https://www.confluent.io/blog/bottled-water-real-time-integration-of-postgresql-and-kafka/" class="bare">https://www.confluent.io/blog/bottled-water-real-time-integration-of-postgresql-and-kafka/</a></p>
+</li>
+<li>
+<p>Advantages of AVRO</p>
+</li>
+<li>
+<p><a href="https://www.oreilly.com/content/the-problem-of-managing-schemas/" class="bare">https://www.oreilly.com/content/the-problem-of-managing-schemas/</a></p>
+</li>
+<li>
+<p><a href="http://blog.confluent.io/2015/02/25/stream-data-platform-2/?_ga=2.83432086.1219337222.1586335574-652590515.1586335574" class="bare">http://blog.confluent.io/2015/02/25/stream-data-platform-2/?_ga=2.83432086.1219337222.1586335574-652590515.1586335574</a></p>
+</li>
+<li>
+<p><a href="http://martin.kleppmann.com/2012/12/05/schema-evolution-in-avro-protocol-buffers-thrift.html" class="bare">http://martin.kleppmann.com/2012/12/05/schema-evolution-in-avro-protocol-buffers-thrift.html</a></p>
+</li>
+<li>
+<p>Confluent blog posts</p>
+</li>
+<li>
+<p><a href="https://www.confluent.io/blog/simplest-useful-kafka-connect-data-pipeline-world-thereabouts-part-1/" class="bare">https://www.confluent.io/blog/simplest-useful-kafka-connect-data-pipeline-world-thereabouts-part-1/</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
